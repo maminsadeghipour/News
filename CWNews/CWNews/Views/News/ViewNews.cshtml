@@ -1,0 +1,13 @@
+﻿@model News
+
+
+@*<img src="@Model.PicturePath"/>*@
+
+    <div class="card mb-3">
+        <img src="@Model.PicturePath" class="card-img-top h-5 w-5">
+        <div class="card-body">
+            <h5 class="card-title">@Model.Title</h5>
+            <p class="card-text">@Model.Description</p>
+            <p class="card-text"><small class="text-body-secondary">نویسنده : @Model.Journalist.Username</small></p>
+        </div>
+    </div>

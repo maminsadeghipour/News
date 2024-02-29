@@ -1,0 +1,29 @@
+﻿@model List<Category>
+
+<a class="btn btn-success" asp-controller="Admin" asp-action="AddCategory">اضافه دسته بندی ها</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">عنوان</th>
+            <th scope="col">تعداد خبر</th>
+            <th scope="col">حذف</th>
+            <th scope="col">تغییر</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <th>@category.Title</th>
+                <th>@category.News.Count()</th>
+                <td><a asp-controller="Admin" asp-action="DeleteCategory" asp-route-Id="@category.Id">حذف</a></td>
+                <td><a asp-controller="Admin" asp-action="UpdateCategory" asp-route-Id="@category.Id">تغییر</a></td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+

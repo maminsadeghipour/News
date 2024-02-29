@@ -1,0 +1,27 @@
+﻿@model List<News>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">عنوان</th>
+            <th scope="col">خبرنگار</th>
+            <th scope="col">زمان</th>
+            <th scope="col">تعداد بازدید</th>
+            <th scope="col">مشاهده بیشتر</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var news in Model)
+         {
+            <tr>
+                <th>@news.Title</th>
+                <td>@news.Journalist.Username</td>
+                <td>@news.AddTime</td>
+                <td>@news.NumberOfViews</td>
+                <td><a asp-controller="News" asp-action="ViewNews" asp-route-Id="@news.Id">مشاهده</a></td>
+            </tr>
+         }
+         
+         
+    </tbody>
+</table>

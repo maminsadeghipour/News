@@ -1,0 +1,24 @@
+﻿@model List<News>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">عنوان</th>
+            <th scope="col">خبرنگار</th>
+            <th scope="col">قبول</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var news in Model)
+        {
+            <tr>
+                <th>@news.Title</th>
+                <th>@news.Journalist.Username</th>
+                <td><a asp-controller="Admin" asp-action="AcceptNews" asp-route-Id="@news.Id">قبول</a></td>               
+            </tr>
+        }
+
+
+    </tbody>
+</table>

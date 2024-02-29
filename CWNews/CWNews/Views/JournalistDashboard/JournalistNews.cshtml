@@ -1,0 +1,28 @@
+﻿@model List<News>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">عنوان</th>
+            <th scope="col">زمان</th>
+            <th scope="col">قبول شده توسط ادمین</th>
+            <th scope="col">به روزرسانی</th>
+            <th scope="col">حذف</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var news in Model)
+        {
+            <tr>
+                <th>@news.Title</th>
+                <td>@news.AddTime</td>
+                <td>@news.IsAcceptedByAdmin</td>
+                <td><a asp-controller="JournalistDashboard" asp-action="UpdateNews" asp-route-NewsId="@news.Id" class="btn btn-primary">به روزرسانی</a></td>
+                <td><a asp-controller="JournalistDashboard" asp-action="DeleteNews" asp-route-NewsId="@news.Id" class="btn btn-danger">حذف</a></td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>

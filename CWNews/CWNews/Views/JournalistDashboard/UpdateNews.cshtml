@@ -1,0 +1,43 @@
+﻿@model CWNews.Models.ModelViews.NewsModelView
+@{
+    var categories = ViewBag.Categories;
+}
+
+<form asp-controller="JournalistDashboard" asp-action="UpdateNews" enctype="multipart/form-data" method="post">
+
+    <div hidden class="form-group">
+        <label  asp-for="Id"></label>
+        <input readonly asp-for="Id" type="text" class="form-control" placeholder="">
+       
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" type="text" class="form-control" placeholder="">
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea class="form-control" asp-for="Description" rows="3"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+
+
+    <div class="form-group">
+        <label asp-for="CategoryId"></label>
+        <select asp-for="CategoryId" class="form-control">
+            <option>انتخاب</option>
+            @foreach (var category in categories)
+            {
+                <option value="@category.Id">@category.Title</option>
+            }
+
+        </select>
+    </div>
+
+
+
+    <button type="submit" class="btn btn-success">بروزرسانی</button>
+</form>
