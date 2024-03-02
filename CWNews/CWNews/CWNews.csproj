@@ -18,6 +18,7 @@
     <None Remove="Views\JournalistDashboard\" />
     <None Remove="Models\ModelViews\" />
     <None Remove="Views\Admin\" />
+    <None Remove="Views\Partials\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Database\" />
@@ -29,6 +30,7 @@
     <Folder Include="Views\JournalistDashboard\" />
     <Folder Include="Models\ModelViews\" />
     <Folder Include="Views\Admin\" />
+    <Folder Include="Views\Partials\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.16" />

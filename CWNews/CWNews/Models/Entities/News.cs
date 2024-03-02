@@ -25,6 +25,8 @@ namespace CWNews.Models.Entities
 
 		public int NumberOfViews { get; set; }
 
+		public List<NewsComment> Comments { get; set; }
+
 	}
 }
 

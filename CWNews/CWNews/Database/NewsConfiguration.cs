@@ -43,6 +43,11 @@ namespace CWNews.Database
                 .WithMany(p => p.News)
                 .HasForeignKey(p => p.JornalistId);
 
+            builder.HasMany(p => p.Comments)
+                .WithOne(p => p.News)
+                .HasForeignKey(p=>p.NewsId)
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }

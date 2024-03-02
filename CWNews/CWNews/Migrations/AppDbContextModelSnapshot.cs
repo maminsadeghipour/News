@@ -22,19 +22,6 @@ namespace CWNews.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("CWNews.Database.Test", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Tests");
-                });
-
             modelBuilder.Entity("CWNews.Models.Entities.Admin", b =>
                 {
                     b.Property<int>("Id")
@@ -115,10 +102,16 @@ namespace CWNews.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsAcceptedByAdmin")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<int>("JornalistId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOfViews")
                         .HasColumnType("int");
 
                     b.Property<string>("PicturePath")
@@ -136,6 +129,74 @@ namespace CWNews.Migrations
                     b.HasIndex("JornalistId");
 
                     b.ToTable("News", (string)null);
+                });
+
+            modelBuilder.Entity("CWNews.Models.Entities.NewsComment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("AddTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<bool>("IsAccepteByAdmin")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("NewsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOfDislikes")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.Property<int>("NumberOfLikes")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.Property<int>("VisitorId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NewsId");
+
+                    b.HasIndex("VisitorId");
+
+                    b.ToTable("NewsComments", (string)null);
+                });
+
+            modelBuilder.Entity("CWNews.Models.Entities.Visitor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Visitors", (string)null);
                 });
 
             modelBuilder.Entity("CWNews.Models.Entities.News", b =>
@@ -157,6 +218,25 @@ namespace CWNews.Migrations
                     b.Navigation("Journalist");
                 });
 
+            modelBuilder.Entity("CWNews.Models.Entities.NewsComment", b =>
+                {
+                    b.HasOne("CWNews.Models.Entities.News", "News")
+                        .WithMany("Comments")
+                        .HasForeignKey("NewsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CWNews.Models.Entities.Visitor", "Visitor")
+                        .WithMany("NewsComments")
+                        .HasForeignKey("VisitorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("News");
+
+                    b.Navigation("Visitor");
+                });
+
             modelBuilder.Entity("CWNews.Models.Entities.Category", b =>
                 {
                     b.Navigation("News");
@@ -165,6 +245,16 @@ namespace CWNews.Migrations
             modelBuilder.Entity("CWNews.Models.Entities.Journalist", b =>
                 {
                     b.Navigation("News");
+                });
+
+            modelBuilder.Entity("CWNews.Models.Entities.News", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("CWNews.Models.Entities.Visitor", b =>
+                {
+                    b.Navigation("NewsComments");
                 });
 #pragma warning restore 612, 618
         }

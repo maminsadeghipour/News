@@ -5,9 +5,11 @@ namespace CWNews.Database
 {
 	public static class MyMemory
 	{
-		public static int? ActiveJournalistId = new();
+		public static int? ActiveJournalistId { get; set; }
 
-		public static bool IsAdminOnline { get; set; } 
+		public static int? ActiveVisitorId { get; set; } = 1;
+
+        public static bool IsAdminOnline { get; set; } 
 	}
 }
 

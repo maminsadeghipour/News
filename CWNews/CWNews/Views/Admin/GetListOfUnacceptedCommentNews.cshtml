@@ -1,0 +1,24 @@
+﻿@model List<NewsComment>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">متن</th>
+            <th scope="col">کاربر</th>
+            <th scope="col">قبول</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cm in Model)
+        {
+            <tr>
+                <th>@cm.Description</th>
+                <th>@cm.Visitor.Username</th>
+                <td><a asp-controller="Admin" asp-action="AcceptCommentNews" asp-route-Id="@cm.Id">قبول</a></td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>

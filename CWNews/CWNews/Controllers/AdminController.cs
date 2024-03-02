@@ -17,6 +17,7 @@ namespace CWNews.Controllers
         private readonly AdminService _adminService = new();
         private readonly CategoryService _categoryService = new();
         private readonly NewsService _newsService = new();
+        private readonly NewsCommentService _newsCommentService = new();
         // GET: /<controller>/
         public IActionResult Index()
         {
@@ -121,6 +122,28 @@ namespace CWNews.Controllers
                 if (accepted)
                     return RedirectToAction("AdminDashboard");
                 return RedirectToAction("GetListOfUnacceptedNews");
+            }
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult GetListOfUnacceptedCommentNews()
+        {
+            if (MyMemory.IsAdminOnline)
+            {
+                var comments = _newsCommentService.GetListOfUnAcceptedComment();
+                return View(comments);
+            }
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult AcceptCommentNews(int Id)
+        {
+            if (MyMemory.IsAdminOnline)
+            {
+                var accepted = _newsCommentService.AcceptByAdmin(Id);
+                if (accepted)
+                    return RedirectToAction("GetListOfUnacceptedCommentNews");
+                return RedirectToAction("GetListOfUnacceptedCommentNews");
             }
             return RedirectToAction("Index");
         }

@@ -1,0 +1,17 @@
+﻿@model NewsComment
+
+<form asp-controller="Visitor" asp-action="VisitorComment" method="post">
+    <div class="form-group" >
+        <label asp-for="Description"></label>
+        <input asp-for="Description" type="text" class="form-control" placeholder="">
+        <span asp-validation-for="Description"></span>
+    </div>
+
+    <div hidden class="form-group">
+        <label asp-for="NewsId"></label>
+        <input asp-for="NewsId" type="text" class="form-control" placeholder="">
+        <span asp-validation-for="Description"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">اضافه</button>
+</form>

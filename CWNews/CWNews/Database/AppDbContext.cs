@@ -12,7 +12,7 @@ namespace CWNews.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=127.0.0.1,1433;Initial Catalog=CWNews;User ID=sa;Password=user@2023;TrustServerCertificate=True;Encrypt=True");
+            optionsBuilder.UseSqlServer(@"Data Source=127.0.0.1,1433;Initial Catalog=CWNews2;User ID=sa;Password=user@2023;TrustServerCertificate=True;Encrypt=True");
             base.OnConfiguring(optionsBuilder);
         }
 
@@ -23,6 +23,8 @@ namespace CWNews.Database
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             modelBuilder.ApplyConfiguration(new NewsConfiguration());
             modelBuilder.ApplyConfiguration(new AdminConfiguration());
+            modelBuilder.ApplyConfiguration(new NewsCommentConfiguration());
+            modelBuilder.ApplyConfiguration(new VisitorConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
@@ -34,6 +36,10 @@ namespace CWNews.Database
         public DbSet<Journalist> Journalists { get; set; }
 
         public DbSet<Admin> Admins { get; set; }
+
+        public DbSet<Visitor> Visitors { get; set; }
+
+        public DbSet<NewsComment> NewsComments { get; set; }
 
   
     }

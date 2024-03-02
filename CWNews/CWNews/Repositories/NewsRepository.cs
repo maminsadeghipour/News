@@ -23,9 +23,12 @@ namespace CWNews.Repositories
             return query.ToList();
 		}
 
-		public News GetById(int Id)
+		public News? GetById(int Id)
 		{
-			return _context.News.AsNoTracking().Include(p => p.Journalist).Include(p=>p.Category).FirstOrDefault(p => p.Id == Id);
+			return _context.News.Include(p => p.Journalist)
+				.Include(p=>p.Category)
+				.Include(p=>p.Comments.Where(c=>c.IsAccepteByAdmin)).ThenInclude(c=>c.Visitor)
+				.FirstOrDefault(p => p.Id == Id);
 		}
 
 		public List<News> NewsByJournalistId(int journalistId)
@@ -57,7 +60,9 @@ namespace CWNews.Repositories
 		{
 			var newsToDelete = _context.News.Find(newsId);
 
-			newsToDelete.IsDeleted = true;
+			//newsToDelete.IsDeleted = true;
+
+			_context.News.Remove(newsToDelete);
 
 			_context.SaveChanges();
 
@@ -68,6 +73,8 @@ namespace CWNews.Repositories
 		{
 			return _context.News.Include(p=>p.Journalist).Where(p => !p.IsAcceptedByAdmin).ToList();
 		}
+
+		
 	}
 }
 
